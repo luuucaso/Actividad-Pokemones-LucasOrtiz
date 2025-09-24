@@ -12,13 +12,78 @@
     </header>
     
     <main>
+        <!-- Buscador de Pokémon -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" 
+                       id="search-input" 
+                       placeholder="Buscar Pokémon por nombre o número (ej: Pikachu, 25)" 
+                       class="search-input">
+                <button id="search-button" class="search-button">
+                    <span class="search-icon">🔍</span>
+                    Buscar
+                </button>
+            </div>
+            <div id="search-message" class="search-message"></div>
+        </div>
+
         <div id="loading" class="loading">
             <p>Cargando pokémones...</p>
         </div>
+
+        <!-- Controles de paginación superiores -->
+        <div id="pagination-top" class="pagination-container">
+            <div class="pagination-info">
+                <span id="pagination-info">Página 1 de 43 - Mostrando 24 de 1015 Pokémon</span>
+            </div>
+            <div class="pagination-controls">
+                <button id="first-page" class="pagination-btn" disabled>Primero</button>
+                <button id="prev-page" class="pagination-btn" disabled>Anterior</button>
+                
+                <div id="page-numbers" class="page-numbers">
+                    <!-- Los números de página se generan dinámicamente -->
+                </div>
+                
+                <button id="next-page" class="pagination-btn">Siguiente</button>
+                <button id="last-page" class="pagination-btn">Último</button>
+            </div>
+        </div>
+
         <div id="pokemon-container" class="pokemon-container">
             <!-- Los pokémones se cargan acá -->
         </div>
+
+        <!-- Controles de paginación inferiores -->
+        <div id="pagination-bottom" class="pagination-container">
+            <div class="pagination-info">
+                <span id="pagination-info-bottom">Página 1 de 43 - Mostrando 24 de 1015 Pokémon</span>
+            </div>
+            <div class="pagination-controls">
+                <button id="first-page-bottom" class="pagination-btn" disabled>Primero</button>
+                <button id="prev-page-bottom" class="pagination-btn" disabled>Anterior</button>
+                
+                <div id="page-numbers-bottom" class="page-numbers">
+                    <!-- Los números de página se generan dinámicamente -->
+                </div>
+                
+                <button id="next-page-bottom" class="pagination-btn">Siguiente</button>
+                <button id="last-page-bottom" class="pagination-btn">Último</button>
+            </div>
+        </div>
     </main>
+
+    <!-- Modal para mostrar la ficha de Pokémon -->
+    <div id="pokemon-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-loading" class="modal-loading">
+                <p>Cargando información del Pokémon...</p>
+            </div>
+            <div id="pokemon-details" class="pokemon-details">
+                <!-- Aquí se cargarán los detalles del Pokémon -->
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
