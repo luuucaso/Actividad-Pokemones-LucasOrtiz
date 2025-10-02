@@ -191,7 +191,7 @@ function renderizarHistorialBusqueda() {
 }
 
 
-function crearTarjetaPokemon(pokemon, indice) {
+function crearTarjetaPokemonElement(pokemon, indice) {
     const tarjetaPokemon = document.createElement("div")
     tarjetaPokemon.className = "pokemon-card"
     tarjetaPokemon.setAttribute('data-pokemon-id', pokemon.id)
@@ -290,10 +290,13 @@ function crearTarjetaPokemon(pokemon, indice) {
         mostrarDetallesPokemon(pokemon.id);
     });
     
-    // Agregar con delay para animación
-    setTimeout(() => {
-        document.getElementById("pokemon-container").appendChild(tarjetaPokemon)
-    }, indice * 100);
+    return tarjetaPokemon;
+}
+
+// Función de compatibilidad (mantener para no romper código existente)
+function crearTarjetaPokemon(pokemon, indice) {
+    const tarjetaPokemon = crearTarjetaPokemonElement(pokemon, indice);
+    document.getElementById("pokemon-container").appendChild(tarjetaPokemon);
 }
 
 function mostrarMensajeError() {
@@ -312,8 +315,13 @@ function mostrarDetallesPokemon(idPokemon) {
     const cargaModal = document.getElementById('modal-loading');
     const detallesPokemon = document.getElementById('pokemon-details');
     
-    // Mostrar el modal y el loading
+    // Mostrar el modal con animación suave
     modal.style.display = 'block';
+    // Usar requestAnimationFrame para asegurar que el DOM se actualice
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
     cargaModal.style.display = 'block';
     detallesPokemon.style.display = 'none';
     detallesPokemon.classList.remove('show');
@@ -322,13 +330,18 @@ function mostrarDetallesPokemon(idPokemon) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
         .then(response => response.json())
         .then(datosPokemon => {
-            // Ocultar loading y mostrar detalles
-            cargaModal.style.display = 'none';
-            detallesPokemon.style.display = 'block';
-            detallesPokemon.classList.add('show');
-            
-            // Crear el contenido del modal
+            // Crear el contenido del modal primero
             detallesPokemon.innerHTML = crearContenidoModalPokemon(datosPokemon);
+            
+            // Usar requestAnimationFrame para transición suave
+            requestAnimationFrame(() => {
+                cargaModal.style.display = 'none';
+                detallesPokemon.style.display = 'block';
+                // Pequeño delay para la transición
+                setTimeout(() => {
+                    detallesPokemon.classList.add('show');
+                }, 50);
+            });
         })
         .catch(error => {
             console.error('Error al obtener detalles del Pokémon:', error);
@@ -344,12 +357,20 @@ function mostrarDetallesPokemon(idPokemon) {
 // Función para crear el contenido del modal con la información del Pokémon
 function crearContenidoModalPokemon(pokemon) {
     const habilidades = pokemon.abilities.map(ability => ability.ability.name).join(', ');
+    const imagenUrl = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default;
+    
+    // Preload de la imagen para mejor rendimiento
+    if (imagenUrl) {
+        const img = new Image();
+        img.src = imagenUrl;
+    }
     
     return `
         <div class="modal-header">
-            <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
+            <img src="${imagenUrl}" 
                  alt="${pokemon.name}" 
-                 class="modal-pokemon-image">
+                 class="modal-pokemon-image"
+                 loading="eager">
             <h2 class="modal-pokemon-name">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
             <p class="modal-pokemon-number">#${pokemon.id.toString().padStart(3, '0')}</p>
             <div class="modal-pokemon-types">
@@ -389,7 +410,16 @@ function crearContenidoModalPokemon(pokemon) {
 // Función para cerrar el modal
 function cerrarModal() {
     const modal = document.getElementById('pokemon-modal');
-    modal.style.display = 'none';
+    const detallesPokemon = document.getElementById('pokemon-details');
+    
+    // Remover clase show para animación de salida
+    modal.classList.remove('show');
+    detallesPokemon.classList.remove('show');
+    
+    // Ocultar modal después de la animación
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 200);
 }
 
 // Variables globales para almacenar todos los Pokémon
@@ -629,11 +659,25 @@ function cargarPaginaPokemon(pagina = 1) {
 // Función para mostrar las tarjetas de Pokémon
 function mostrarTarjetasPokemon(listaPokemon) {
     const contenedorPokemon = document.getElementById("pokemon-container");
+    
+    // Limpiar completamente el contenedor
     contenedorPokemon.innerHTML = '';
     
+    // Validar que la lista no esté vacía
+    if (!listaPokemon || listaPokemon.length === 0) {
+        return;
+    }
+    
+    // Crear un fragmento para mejor rendimiento
+    const fragment = document.createDocumentFragment();
+    
     listaPokemon.forEach((pokemon, indice) => {
-        crearTarjetaPokemon(pokemon, indice);
+        const tarjetaPokemon = crearTarjetaPokemonElement(pokemon, indice);
+        fragment.appendChild(tarjetaPokemon);
     });
+    
+    // Agregar todas las tarjetas de una vez
+    contenedorPokemon.appendChild(fragment);
 }
 
 // Función para actualizar los controles de paginación
@@ -757,6 +801,10 @@ function irAUltimaPagina() {
 let vistaActual = 'todos'; // 'todos' o 'favoritos'
 
 function cambiarVista(nuevaVista) {
+    // Limpiar el contenedor antes de cambiar de vista
+    const contenedorPokemon = document.getElementById('pokemon-container');
+    contenedorPokemon.innerHTML = '';
+    
     vistaActual = nuevaVista;
     const botonTodos = document.getElementById('view-all');
     const botonFavoritos = document.getElementById('view-favorites');
@@ -765,7 +813,7 @@ function cambiarVista(nuevaVista) {
     if (nuevaVista === 'todos') {
         botonTodos.classList.add('active');
         botonFavoritos.classList.remove('active');
-        // Ocultar búsqueda y paginación para favoritos
+        // Mostrar búsqueda y paginación para todos
         document.querySelector('.search-container').style.display = 'block';
         document.getElementById('pagination-top').style.display = 'block';
         document.getElementById('pagination-bottom').style.display = 'block';
@@ -790,6 +838,12 @@ function mostrarFavoritos() {
     const favoritos = obtenerFavoritos();
     const contenedorPokemon = document.getElementById('pokemon-container');
     
+    // Limpiar completamente el contenedor primero
+    contenedorPokemon.innerHTML = '';
+    
+    // Asegurar que estamos en la vista de favoritos
+    vistaActual = 'favoritos';
+    
     if (favoritos.length === 0) {
         contenedorPokemon.innerHTML = `
             <div class="empty-favorites">
@@ -798,6 +852,7 @@ function mostrarFavoritos() {
             </div>
         `;
     } else {
+        // Mostrar solo los favoritos reales
         mostrarTarjetasPokemon(favoritos);
     }
 }

@@ -42,11 +42,9 @@ body {
 
 /* Header */
 header {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     background: var(--bg-header);
-    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
 }
 
 .header-content {
@@ -70,35 +68,27 @@ header p {
 }
 
 header img{
-    width: 350px;
-    height: 100px;
+    width: 250px;
+    height: 70px;
 }
 
 /* Theme Toggle Button */
 .theme-toggle {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease;
 }
 
 .theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.theme-toggle:active {
-    transform: scale(0.95);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .theme-icon {
@@ -143,20 +133,12 @@ main {
 
 .search-box {
     display: flex;
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     background: var(--bg-secondary);
-    border-radius: 50px;
-    box-shadow: 0 8px 32px var(--shadow-color);
-    backdrop-filter: blur(10px);
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.search-box:focus-within {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .search-input {
@@ -176,27 +158,22 @@ main {
 }
 
 .search-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--text-primary);
+    color: var(--bg-primary);
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     cursor: pointer;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.3s ease;
+    transition: background-color 0.2s ease;
     font-family: inherit;
 }
 
 .search-button:hover {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-    transform: scale(1.05);
-}
-
-.search-button:active {
-    transform: scale(0.98);
+    background: var(--text-secondary);
 }
 
 .search-icon {
@@ -288,30 +265,23 @@ main {
 
 .view-btn {
     background: var(--bg-secondary);
-    border: 2px solid var(--border-color);
-    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     padding: 0.8rem 1.5rem;
     color: var(--text-secondary);
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
 }
 
 .view-btn:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-color: transparent;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--shadow-hover);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .view-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 6px 20px var(--shadow-hover);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 #favorites-count {
@@ -364,17 +334,15 @@ main {
     top: 20px;
     right: 20px;
     z-index: 1000;
-    padding: 1rem 1.5rem;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 25px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    min-width: 150px;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    min-width: 120px;
     text-align: center;
     transform: translateX(0);
     opacity: 1;
@@ -388,27 +356,27 @@ main {
 
 /* Estados específicos */
 .loading[data-estado="buscando"] {
-    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    background: #4299e1;
     color: white;
 }
 
 .loading[data-estado="cargando-lista"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #667eea;
     color: white;
 }
 
 .loading[data-estado="error"] {
-    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    background: #f56565;
     color: white;
 }
 
 .loading[data-estado="desde-cache"] {
-    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    background: #48bb78;
     color: white;
 }
 
 .loading[data-estado="listo"] {
-    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    background: #ed8936;
     color: white;
 }
 
@@ -434,11 +402,9 @@ main {
 /* Paginación */
 .pagination-container {
     background: var(--bg-secondary);
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: 8px;
+    padding: 1rem;
     margin: 1rem 0;
-    box-shadow: 0 8px 32px var(--shadow-color);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
 }
 
@@ -459,27 +425,21 @@ main {
 }
 
 .pagination-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--text-primary);
+    color: var(--bg-primary);
     border: none;
     padding: 0.8rem 1.2rem;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
     font-family: inherit;
     min-width: 80px;
 }
 
 .pagination-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.pagination-btn:active:not(:disabled) {
-    transform: translateY(0);
+    background: var(--text-secondary);
 }
 
 .pagination-btn:disabled {
@@ -499,31 +459,27 @@ main {
 }
 
 .page-number {
-    background: rgba(255, 255, 255, 0.9);
-    color: #4a5568;
-    border: 2px solid #e2e8f0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
     padding: 0.6rem 0.9rem;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    transition: all 0.2s ease;
     min-width: 40px;
     text-align: center;
 }
 
 .page-number:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-color: transparent;
-    transform: translateY(-1px);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .page-number.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .page-number.ellipsis {
@@ -594,12 +550,10 @@ main {
 /* Pokemon cards */
 .pokemon-card {
     background: var(--bg-secondary);
-    border-radius: 15px;
+    border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 8px 32px var(--shadow-color);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -609,8 +563,7 @@ main {
 }
 
 .pokemon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
 /* Image container */
@@ -725,30 +678,28 @@ main {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    font-size: 1.1rem;
+    transition: background-color 0.2s ease;
     z-index: 10;
 }
 
 .favorite-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .favorite-btn.favorito {
-    background: rgba(255, 107, 107, 0.9);
-    animation: heartbeat 0.6s ease-in-out;
+    background: #e53e3e;
+    color: white;
 }
 
 @keyframes heartbeat {
@@ -860,28 +811,35 @@ main {
     top: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: background-color, backdrop-filter;
+}
+
+.modal.show {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: var(--bg-secondary);
     margin: 5% auto;
     padding: 0;
-    border-radius: 20px;
+    border-radius: 8px;
     width: 90%;
-    max-width: 600px;
+    max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
     position: relative;
-    animation: modalSlideIn 0.3s ease-out;
+    animation: modalSlideIn 0.2s ease-out;
 }
 
 @keyframes modalSlideIn {
     from {
         opacity: 0;
-        transform: translateY(-50px) scale(0.9);
+        transform: translateY(-20px) scale(0.95);
     }
     to {
         opacity: 1;
@@ -891,28 +849,26 @@ main {
 
 .close {
     position: absolute;
-    right: 20px;
+    right: 15px;
     top: 15px;
-    color: #aaa;
-    font-size: 28px;
+    color: red;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     z-index: 1001;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 .close:hover,
 .close:focus {
     color: #e53e3e;
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
 }
 
 /* Modal loading */
@@ -926,34 +882,36 @@ main {
 /* Pokemon details */
 .pokemon-details {
     padding: 2rem;
-    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
 }
 
 .pokemon-details.show {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Header del modal */
 .modal-header {
     text-align: center;
-    padding: 2rem 2rem 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 20px 20px 0 0;
+    padding: 1.5rem;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-radius: 8px 8px 0 0;
 }
 
 .modal-pokemon-image {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
     margin-bottom: 1rem;
 }
 
 .modal-pokemon-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .modal-pokemon-number {
@@ -970,14 +928,12 @@ main {
 }
 
 .modal .type {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 25px;
-    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    font-weight: 500;
     text-transform: capitalize;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Contenido del modal */
@@ -1042,18 +998,12 @@ main {
 }
 
 .ability-item {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 0.8rem 1.2rem;
-    border-radius: 20px;
-    font-weight: bold;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
     text-transform: capitalize;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.ability-item:hover {
-    transform: translateY(-2px);
 }
 
 /* Responsive para modal */
